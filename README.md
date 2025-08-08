@@ -29,18 +29,27 @@ For Software:
 - OpenCV or Pillow (for image processing), Scikit-learn or TensorFlow/PyTorch (for AI model)
 - GitHub, VS Code
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
-
 ### Implementation
-For Software:
+For Software: 
+Frontend: React + TypeScript (Vite) with Tailwind CSS and shadcn/ui for a responsive UI.
+Image Analysis: chapathiAnalyzer.ts detects chapathi outline, compares with a perfect circle, and calculates roundness.
+Roast Logic: Predefined templates generate witty feedback based on score and shape issues.
+Display: Instant results with score, roast text, and side-by-side image comparison.
+Deployment: Runs locally or hosted on Vercel/Netlify
+
 # Installation
-[commands]
+# 1. Clone the repository
+git clone https://github.com/username/chapathi-roast-master.git
+cd chapathi-roast-master
+# 2. Install dependencies
+npm install
+# 3. Start development server
+npm run dev
 
 # Run
-[commands]
+# Start the development server
+npm run dev
+
 
 ### Project Documentation
 For Software:
