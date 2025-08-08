@@ -1,34 +1,33 @@
 <img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 
-# [Project Name] 🎯
+# Chapathi Roast Master 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Team Aura
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Abraham Jeyakumar - NSS College of Engineering
+- Member 2: Aravind Sunil - NSS College of Engineering
 
 ### Project Description
-[2-3 lines about what your project does]
+Chapathi Roast Master is a fun AI-powered web app that analyzes the roundness of your chapathi and delivers brutally honest, South Indian–style roast feedback. Just upload a photo, and it scores your chapathi while serving spicy remarks to help you roll it better next time.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+Humanity faces a crisis no one dares to talk about—tragically misshapen chapathis. Every day, millions of dinner plates are disgraced by ovals, blobs, and “what even is this shape?” disasters. Aunties are whispering, mother-in-laws are judging, and Instagram likes are plummeting. It’s time to restore dignity to the humble chapathi.
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+We built Chapathi Roast Master, the AI overlord your kitchen never knew it needed. Just snap a pic of your chapathi, and our algorithm will measure its roundness with surgical precision, then roast you harder than your tawa ever could. It’s part shape detector, part stand-up comedian, and 100% committed to making your chapathis (and ego) perfectly round.
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- Python,HTML, CSS, JavaScript
+- Flask or Django (for the backend), React (for the frontend)
+- OpenCV or Pillow (for image processing), Scikit-learn or TensorFlow/PyTorch (for AI model)
+- GitHub, VS Code
 
 For Hardware:
 - [List main components]
@@ -88,9 +87,9 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Abraham Jeyakumar: Focused on frontend development, UI design, and integrating the chapathi image upload and result display components.
+- Aravind Sunil: 
+- [Name 3]: Worked on backend logic, image analysis algorithm, and generating the humorous roast messages.
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
