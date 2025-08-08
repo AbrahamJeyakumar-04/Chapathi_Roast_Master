@@ -9,6 +9,7 @@ interface AnalysisResult {
   direction?: string;
   issueType?: string;
   imageUrl: string;
+  analyzedImageUrl?: string;
 }
 
 interface ResultDisplayProps {
@@ -57,15 +58,36 @@ export function ResultDisplay({ result, onReset }: ResultDisplayProps) {
         </div>
       </Card>
 
-      <Card className="p-4 card-gradient shadow-warm">
-        <div className="aspect-square w-full max-w-md mx-auto rounded-lg overflow-hidden">
-          <img 
-            src={result.imageUrl} 
-            alt="Analyzed chapathi" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </Card>
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Original Image */}
+        <Card className="p-4 card-gradient shadow-warm">
+          <h3 className="text-center font-semibold text-masala mb-2">Original Chapathi</h3>
+          <div className="aspect-square w-full rounded-lg overflow-hidden">
+            <img 
+              src={result.imageUrl} 
+              alt="Original chapathi" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </Card>
+
+        {/* Analyzed Image with Circle */}
+        <Card className="p-4 card-gradient shadow-warm">
+          <h3 className="text-center font-semibold text-masala mb-2">
+            Analysis Results
+            <span className="block text-xs text-muted-foreground mt-1">
+              Green: Perfect Circle | Red: Actual Shape
+            </span>
+          </h3>
+          <div className="aspect-square w-full rounded-lg overflow-hidden">
+            <img 
+              src={result.analyzedImageUrl || result.imageUrl} 
+              alt="Analyzed chapathi with virtual circle" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </Card>
+      </div>
 
       <div className="text-center">
         <Button 

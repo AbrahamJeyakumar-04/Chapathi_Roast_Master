@@ -3,6 +3,7 @@ interface AnalysisResult {
   roastMessage: string;
   direction?: string;
   issueType?: string;
+  analyzedImageUrl?: string;
 }
 
 const roastBank = {
@@ -14,7 +15,7 @@ const roastBank = {
     "Excellent work! This chapathi deserves a place in Saravana Bhavan."
   ],
   medium: [
-    "Hmm… okay okay. But {direction} side {issueType}, roll properly pa.",
+    "Hmm… okay okay. But {direction} side is {issueType}, roll properly pa.",
     "Appa will eat it, but he will still compare it to patti's chapathi.",
     "{direction} side is {issueType}… even idli is laughing at the shape.",
     "Not bad da, but my neighbor's cat could make it rounder.",
@@ -44,146 +45,268 @@ function getRandomRoast(perfection: number, direction?: string, issueType?: stri
     .replace('{issueType}', issueType || '');
 }
 
-function findContours(imageData: ImageData): number[][] {
+// Convert RGB to grayscale
+function rgbToGray(r: number, g: number, b: number): number {
+  return 0.299 * r + 0.587 * g + 0.114 * b;
+}
+
+// Apply Gaussian blur
+function gaussianBlur(imageData: ImageData, radius: number = 2): ImageData {
   const { data, width, height } = imageData;
-  const edges: boolean[][] = Array(height).fill(null).map(() => Array(width).fill(false));
+  const output = new ImageData(width, height);
   
-  // Simple edge detection
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let r = 0, g = 0, b = 0, a = 0, weightSum = 0;
+      
+      for (let dy = -radius; dy <= radius; dy++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+          const ny = Math.max(0, Math.min(height - 1, y + dy));
+          const nx = Math.max(0, Math.min(width - 1, x + dx));
+          const idx = (ny * width + nx) * 4;
+          
+          const weight = Math.exp(-(dx*dx + dy*dy) / (2 * radius * radius));
+          r += data[idx] * weight;
+          g += data[idx + 1] * weight;
+          b += data[idx + 2] * weight;
+          a += data[idx + 3] * weight;
+          weightSum += weight;
+        }
+      }
+      
+      const outIdx = (y * width + x) * 4;
+      output.data[outIdx] = r / weightSum;
+      output.data[outIdx + 1] = g / weightSum;
+      output.data[outIdx + 2] = b / weightSum;
+      output.data[outIdx + 3] = a / weightSum;
+    }
+  }
+  
+  return output;
+}
+
+// Canny edge detection
+function cannyEdgeDetection(imageData: ImageData): ImageData {
+  const { data, width, height } = imageData;
+  const edges = new ImageData(width, height);
+  
+  // Convert to grayscale and apply edge detection
   for (let y = 1; y < height - 1; y++) {
     for (let x = 1; x < width - 1; x++) {
       const idx = (y * width + x) * 4;
-      const gray = (data[idx] + data[idx + 1] + data[idx + 2]) / 3;
       
-      const grayTop = (data[((y-1) * width + x) * 4] + data[((y-1) * width + x) * 4 + 1] + data[((y-1) * width + x) * 4 + 2]) / 3;
-      const grayLeft = (data[(y * width + (x-1)) * 4] + data[(y * width + (x-1)) * 4 + 1] + data[(y * width + (x-1)) * 4 + 2]) / 3;
-      
-      if (Math.abs(gray - grayTop) > 30 || Math.abs(gray - grayLeft) > 30) {
-        edges[y][x] = true;
+      // Get surrounding pixels
+      const pixels = [];
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          const nIdx = ((y + dy) * width + (x + dx)) * 4;
+          pixels.push(rgbToGray(data[nIdx], data[nIdx + 1], data[nIdx + 2]));
+        }
       }
+      
+      // Sobel operators
+      const gx = pixels[0] + 2*pixels[3] + pixels[6] - pixels[2] - 2*pixels[5] - pixels[8];
+      const gy = pixels[0] + 2*pixels[1] + pixels[2] - pixels[6] - 2*pixels[7] - pixels[8];
+      const magnitude = Math.sqrt(gx*gx + gy*gy);
+      
+      const edgeValue = magnitude > 50 ? 255 : 0;
+      edges.data[idx] = edgeValue;
+      edges.data[idx + 1] = edgeValue;
+      edges.data[idx + 2] = edgeValue;
+      edges.data[idx + 3] = 255;
     }
   }
+  
+  return edges;
+}
 
-  // Find contour points
-  const contour: number[][] = [];
+// Find contours from edge image
+function findContours(edgeData: ImageData): Array<{x: number, y: number}> {
+  const { data, width, height } = edgeData;
+  const contourPoints: Array<{x: number, y: number}> = [];
+  
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      if (edges[y][x]) {
-        contour.push([x, y]);
+      const idx = (y * width + x) * 4;
+      if (data[idx] > 128) { // Edge pixel
+        contourPoints.push({x, y});
       }
     }
   }
   
-  return contour;
+  return contourPoints;
 }
 
-function calculateCircularity(contour: number[][]): number {
-  if (contour.length < 3) return 0;
-
-  // Calculate area using shoelace formula
-  let area = 0;
-  for (let i = 0; i < contour.length; i++) {
-    const j = (i + 1) % contour.length;
-    area += contour[i][0] * contour[j][1];
-    area -= contour[j][0] * contour[i][1];
+// Fit minimum enclosing circle
+function fitCircle(contour: Array<{x: number, y: number}>): {center: {x: number, y: number}, radius: number} {
+  if (contour.length === 0) {
+    return {center: {x: 0, y: 0}, radius: 0};
   }
-  area = Math.abs(area) / 2;
-
-  // Calculate perimeter
-  let perimeter = 0;
-  for (let i = 0; i < contour.length; i++) {
-    const j = (i + 1) % contour.length;
-    const dx = contour[j][0] - contour[i][0];
-    const dy = contour[j][1] - contour[i][1];
-    perimeter += Math.sqrt(dx * dx + dy * dy);
-  }
-
-  if (perimeter === 0) return 0;
-
-  // Circularity = 4π * area / perimeter²
-  const circularity = (4 * Math.PI * area) / (perimeter * perimeter);
-  return Math.min(circularity, 1.0);
-}
-
-function findCentroid(contour: number[][]): [number, number] {
+  
+  // Calculate centroid
   let cx = 0, cy = 0;
   for (const point of contour) {
-    cx += point[0];
-    cy += point[1];
+    cx += point.x;
+    cy += point.y;
   }
-  return [cx / contour.length, cy / contour.length];
+  cx /= contour.length;
+  cy /= contour.length;
+  
+  // Find maximum distance from centroid
+  let maxDist = 0;
+  for (const point of contour) {
+    const dist = Math.sqrt((point.x - cx) ** 2 + (point.y - cy) ** 2);
+    maxDist = Math.max(maxDist, dist);
+  }
+  
+  return {center: {x: cx, y: cy}, radius: maxDist};
 }
 
-function analyzeDeviations(contour: number[][], cx: number, cy: number): { direction: string; issueType: string } {
-  const distances = contour.map(([x, y]) => Math.sqrt((x - cx) ** 2 + (y - cy) ** 2));
-  const avgDistance = distances.reduce((a, b) => a + b, 0) / distances.length;
+// Calculate deviations and directions
+function analyzeDeviations(contour: Array<{x: number, y: number}>, circle: {center: {x: number, y: number}, radius: number}) {
+  const deviations = contour.map(point => {
+    const dist = Math.sqrt((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2);
+    return {
+      point,
+      deviation: dist - circle.radius,
+      distance: dist
+    };
+  });
   
-  let maxDeviation = 0;
-  let maxDeviationIndex = 0;
+  // Find max positive and negative deviations
+  let maxOutward = deviations[0];
+  let maxInward = deviations[0];
   
-  for (let i = 0; i < distances.length; i++) {
-    const deviation = Math.abs(distances[i] - avgDistance);
-    if (deviation > maxDeviation) {
-      maxDeviation = deviation;
-      maxDeviationIndex = i;
-    }
+  for (const dev of deviations) {
+    if (dev.deviation > maxOutward.deviation) maxOutward = dev;
+    if (dev.deviation < maxInward.deviation) maxInward = dev;
   }
-
-  const [maxX, maxY] = contour[maxDeviationIndex];
-  const dx = maxX - cx;
-  const dy = maxY - cy;
-
+  
+  // Determine direction of major deviation
+  const majorDeviation = Math.abs(maxOutward.deviation) > Math.abs(maxInward.deviation) ? maxOutward : maxInward;
+  const dx = majorDeviation.point.x - circle.center.x;
+  const dy = majorDeviation.point.y - circle.center.y;
+  
   let direction: string;
   if (Math.abs(dx) > Math.abs(dy)) {
     direction = dx > 0 ? "right" : "left";
   } else {
     direction = dy > 0 ? "bottom" : "top";
   }
+  
+  const issueType = majorDeviation.deviation > 0 ? "lengthier" : "smaller";
+  
+  // Calculate roundness score
+  const avgDeviation = deviations.reduce((sum, dev) => sum + Math.abs(dev.deviation), 0) / deviations.length;
+  const perfection = Math.max(0, Math.min(100, 100 - (avgDeviation / circle.radius) * 100));
+  
+  return { direction, issueType, perfection };
+}
 
-  const issueType = distances[maxDeviationIndex] > avgDistance ? "bulging" : "flat";
-
-  return { direction, issueType };
+// Draw analysis on image
+function drawAnalysis(
+  canvas: HTMLCanvasElement, 
+  contour: Array<{x: number, y: number}>, 
+  circle: {center: {x: number, y: number}, radius: number},
+  perfection: number
+): string {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return '';
+  
+  // Draw original image (already drawn)
+  
+  // Draw fitted circle (green)
+  ctx.strokeStyle = '#00ff00';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(circle.center.x, circle.center.y, circle.radius, 0, 2 * Math.PI);
+  ctx.stroke();
+  
+  // Draw contour (red)
+  if (contour.length > 0) {
+    ctx.strokeStyle = '#ff0000';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(contour[0].x, contour[0].y);
+    for (let i = 1; i < contour.length; i++) {
+      ctx.lineTo(contour[i].x, contour[i].y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+  }
+  
+  // Draw perfection text
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(10, 10, 300, 80);
+  ctx.fillStyle = '#000000';
+  ctx.font = 'bold 24px Arial';
+  ctx.fillText(`${perfection.toFixed(1)}% Perfect`, 20, 40);
+  ctx.font = '16px Arial';
+  ctx.fillText('Green: Fitted Circle | Red: Actual Shape', 20, 70);
+  
+  return canvas.toDataURL('image/png');
 }
 
 export function analyzeChapathi(imageElement: HTMLImageElement): AnalysisResult {
-  // Create canvas and get image data
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-  
-  if (!ctx) {
-    throw new Error('Could not get canvas context');
-  }
+  try {
+    // Create canvas and draw image
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    if (!ctx) {
+      throw new Error('Could not get canvas context');
+    }
 
-  canvas.width = imageElement.width;
-  canvas.height = imageElement.height;
-  ctx.drawImage(imageElement, 0, 0);
+    // Resize if too large for performance
+    const maxSize = 800;
+    let { width, height } = imageElement;
+    if (width > maxSize || height > maxSize) {
+      const ratio = Math.min(maxSize / width, maxSize / height);
+      width *= ratio;
+      height *= ratio;
+    }
+    
+    canvas.width = width;
+    canvas.height = height;
+    ctx.drawImage(imageElement, 0, 0, width, height);
 
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  
-  // Find contours
-  const contour = findContours(imageData);
-  
-  if (contour.length < 10) {
+    // Get image data and process
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const blurred = gaussianBlur(imageData, 2);
+    const edges = cannyEdgeDetection(blurred);
+    
+    // Find contours
+    const contour = findContours(edges);
+    
+    if (contour.length < 50) {
+      return {
+        perfection: 0,
+        roastMessage: "Aiyyo! I can't find the chapathi in this photo! Is this a magic trick? Make sure there's good contrast!"
+      };
+    }
+
+    // Fit circle and analyze
+    const circle = fitCircle(contour);
+    const { direction, issueType, perfection } = analyzeDeviations(contour, circle);
+    
+    // Draw analysis on canvas
+    const analyzedImageUrl = drawAnalysis(canvas, contour, circle, perfection);
+    
+    // Get roast message
+    const roastMessage = getRandomRoast(perfection, direction, issueType);
+
+    return {
+      perfection,
+      roastMessage,
+      direction,
+      issueType,
+      analyzedImageUrl
+    };
+  } catch (error) {
+    console.error('Analysis error:', error);
     return {
       perfection: 0,
-      roastMessage: "Aiyyo! I can't even find the chapathi in this photo! Is this a magic trick?"
+      roastMessage: "Aiyyo! Something went wrong while analyzing your chapathi. Try a clearer photo!"
     };
   }
-
-  // Calculate circularity
-  const circularity = calculateCircularity(contour);
-  const perfection = circularity * 100;
-
-  // Find issues
-  const [cx, cy] = findCentroid(contour);
-  const { direction, issueType } = analyzeDeviations(contour, cx, cy);
-
-  // Get roast message
-  const roastMessage = getRandomRoast(perfection, direction, issueType);
-
-  return {
-    perfection,
-    roastMessage,
-    direction,
-    issueType
-  };
 }

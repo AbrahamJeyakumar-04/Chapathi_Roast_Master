@@ -13,6 +13,7 @@ interface AnalysisResult {
   direction?: string;
   issueType?: string;
   imageUrl: string;
+  analyzedImageUrl?: string;
 }
 
 const Index = () => {
