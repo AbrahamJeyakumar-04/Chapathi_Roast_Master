@@ -52,16 +52,22 @@ npm run dev
 
 
 ### Project Documentation
-For Software:
+For Software:Chapathi Roast Master is a web application that analyzes chapathi images for roundness and delivers light-hearted roast feedback.
+Frontend: Developed with React and TypeScript using Vite for optimized builds. Styled with Tailwind CSS and shadcn/ui for a modern, responsive interface.
+Image Processing: chapathiAnalyzer.ts detects edges, compares against a perfect circle, and computes a roundness score.
+Roast Generation: Template-based logic produces humorous feedback tailored to the score and shape deviations.
+UI Components: Modular components (ImageUpload, ResultDisplay) manage file input and result presentation.
+Deployment: Supports local execution and cloud hosting via Vercel or Netlify.
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
+<img width="1399" height="819" alt="Screenshot 2025-08-09 034001" src="https://github.com/user-attachments/assets/e3bca982-8d27-4d0a-be81-1c3d0c2f3c03" />
 *Add caption explaining what this shows*
 
-![Screenshot2](Add screenshot 2 here with proper name)
+<img width="1455" height="766" alt="Screenshot 2025-08-09 034044" src="https://github.com/user-attachments/assets/046f2f71-e835-4a74-8bef-2459a4b4be8c" />
 *Add caption explaining what this shows*
 
-![Screenshot3](Add screenshot 3 here with proper name)
+
+<img width="1919" height="1030" alt="Screenshot 2025-08-09 052852" src="https://github.com/user-attachments/assets/200f9230-f913-4414-897e-01e7fc92d730" />
 *Add caption explaining what this shows*
 
 # Diagrams
