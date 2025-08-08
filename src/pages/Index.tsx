@@ -90,7 +90,7 @@ const Index = () => {
             <Sparkles className="w-8 h-8 animate-pulse-glow" />
           </div>
           <p className="text-xl opacity-90 max-w-2xl mx-auto">
-            Upload your chapathi and get brutally honest feedback from our South Indian Roast Engine! 
+            Upload your chapathi picture and get brutally honest feedback from our South Indian Roast Engine! 
             We'll analyze the roundness and deliver the spiciest roasts this side of Chennai.
           </p>
           <div className="flex gap-2 justify-center mt-4 flex-wrap">
@@ -135,7 +135,6 @@ const Index = () => {
       {/* Footer */}
       <div className="border-t border-border bg-secondary/30 py-6 mt-12">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p>Made with ❤️ and a healthy dose of South Indian humor</p>
         </div>
       </div>
     </div>
