@@ -61,7 +61,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Indian theme colors
+				saffron: 'hsl(var(--saffron))',
+				turmeric: 'hsl(var(--turmeric))',
+				curry: 'hsl(var(--curry))',
+				masala: 'hsl(var(--masala))',
+				coconut: 'hsl(var(--coconut))',
+				mint: 'hsl(var(--mint))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

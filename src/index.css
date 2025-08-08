@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Chapathi Roast Master Design System - Indian-inspired vibrant design
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Indian-inspired color palette */
+    --background: 45 100% 98%;
+    --foreground: 15 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 15 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 15 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Saffron-inspired primary */
+    --primary: 25 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Warm cream secondary */
+    --secondary: 40 40% 94%;
+    --secondary-foreground: 15 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted warm tones */
+    --muted: 40 20% 90%;
+    --muted-foreground: 15 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Turmeric accent */
+    --accent: 45 95% 65%;
+    --accent-foreground: 15 25% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Spicy red for errors */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 25 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Custom Indian theme colors */
+    --saffron: 25 100% 50%;
+    --turmeric: 45 95% 65%;
+    --curry: 35 80% 45%;
+    --masala: 15 60% 35%;
+    --coconut: 0 0% 98%;
+    --mint: 140 40% 55%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--saffron)), hsl(var(--turmeric)));
+    --gradient-card: linear-gradient(180deg, hsl(var(--coconut)), hsl(40 30% 96%));
+    --gradient-result: linear-gradient(135deg, hsl(var(--mint)), hsl(var(--turmeric)));
+
+    /* Shadows */
+    --shadow-warm: 0 10px 30px -10px hsl(var(--saffron) / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--turmeric) / 0.4);
+
+    /* Animations */
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +128,61 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .card-gradient {
+    background: var(--gradient-card);
+  }
+  
+  .result-gradient {
+    background: var(--gradient-result);
+  }
+  
+  .shadow-warm {
+    box-shadow: var(--shadow-warm);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes pulse-glow {
+    0% { box-shadow: 0 0 20px hsl(var(--turmeric) / 0.3); }
+    100% { box-shadow: 0 0 40px hsl(var(--turmeric) / 0.6); }
+  }
+  
+  .text-gradient {
+    background: var(--gradient-hero);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
