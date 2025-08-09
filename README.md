@@ -84,7 +84,7 @@ For Hardware:
 *Add caption explaining the schematic*
 
 # Build Photos
-![Components](Add photo of your components here)
+<img width="1919" height="958" alt="Screenshot 2025-08-09 053433" src="https://github.com/user-attachments/assets/4b3937e3-3e34-4318-9ef7-8156b796083a" />
 *List out all components shown*
 
 ![Build](Add photos of build process here)
@@ -104,7 +104,6 @@ For Hardware:
 ## Team Contributions
 - Abraham Jeyakumar: Focused on frontend development, UI design, and integrating the chapathi image upload and result display components.
 - Aravind Sunil: 
-- [Name 3]: Worked on backend logic, image analysis algorithm, and generating the humorous roast messages.
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
