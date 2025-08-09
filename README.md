@@ -64,10 +64,10 @@ Deployment: Supports local execution and cloud hosting via Vercel or Netlify.
 This screen allows the user to upload a chapathi image. The interface is simple and responsive, ensuring quick access for testing without unnecessary distractions.
 
 <img width="1919" height="967" alt="Screenshot 2025-08-09 053405" src="https://github.com/user-attachments/assets/924d31e0-3e35-491f-ad76-ead50bbb7cf0" />
-The final result is shown along with a roundness percentage and humorous feedback, making the process both informative and engaging.(with % likness to circle)
+The final result is shown along with a roundness percentage and humorous feedback, making the process both informative and engaging.(with 69.9% likness to circle)
 
 <img width="1919" height="962" alt="Screenshot 2025-08-09 053451" src="https://github.com/user-attachments/assets/29c07f5c-d95a-45ba-940f-dcb1487e44ed" />
-The final output presents the chapathi’s roundness score alongside witty, light-hearted remarks, blending precise analysis with a touch of humor for an enjoyable user experience.(with % likeness to circle)
+The final output presents the chapathi’s roundness score alongside witty, light-hearted remarks, blending precise analysis with a touch of humor for an enjoyable user experience.(with 66.7% likeness to circle)
 
 # Diagrams
 <img width="1314" height="674" alt="diagram-export-8-9-2025-3_47_50-AM" src="https://github.com/user-attachments/assets/2d50b56a-2eeb-4055-a1ee-9ed4a721e406" />
