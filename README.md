@@ -80,7 +80,7 @@ The video showcases Chapathi Roast Master in action — a chapathi image is uplo
 
 ## Team Contributions
 - Abraham Jeyakumar: Focused on frontend development, UI design, and integrating the chapathi image upload and result display components.
-- Aravind Sunil: 
+- Aravind Sunil:A Worked on backend logic, image analysis algorithm, and generating the humorous roast messages.
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
