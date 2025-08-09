@@ -78,6 +78,10 @@ The process begins on the Landing Page, where the user proceeds to the Image Upl
 https://drive.google.com/file/d/1HjzwR_PEigbl0zpPj3bcwAbrIxKHVKcN/view?usp=sharing
 The video showcases Chapathi Roast Master in action — a chapathi image is uploaded, instantly analyzed for roundness, and scored with a precise percentage. The result pairs accuracy with humor, delivering both the technical verdict and a witty roast, making chapathi-checking both useful and entertaining.
 
+# Additional Demos
+https://chapathi-roast-master.vercel.app/
+Hosted on this website
+
 ## Team Contributions
 - Abraham Jeyakumar: Focused on frontend development, UI design, and integrating the chapathi image upload and result display components.
 - Aravind Sunil:A Worked on backend logic, image analysis algorithm, and generating the humorous roast messages.
