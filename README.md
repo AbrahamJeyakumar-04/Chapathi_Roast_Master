@@ -39,7 +39,7 @@ Deployment: Runs locally or hosted on Vercel/Netlify
 
 # Installation
 # 1. Clone the repository
-git clone https://github.com/username/chapathi-roast-master.git
+git clone https://github.com/AbrahamJeyakumar-04/Chapathi_Roast_Master.git
 cd chapathi-roast-master
 # 2. Install dependencies
 npm install
