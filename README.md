@@ -71,15 +71,12 @@ The final output presents the chapathi’s roundness score alongside witty, ligh
 
 # Diagrams
 <img width="1314" height="674" alt="diagram-export-8-9-2025-3_47_50-AM" src="https://github.com/user-attachments/assets/2d50b56a-2eeb-4055-a1ee-9ed4a721e406" />
-*Add caption explaining your workflow*
+The process begins on the Landing Page, where the user proceeds to the Image Upload step. Once an image is uploaded, it enters the Analysis stage, starting with Photo Processing to detect key features. The data then moves to Result Generation, where calculations determine metrics such as roundness percentage. The Results Page presents these findings in multiple formats — showing the Roundness Score, a Quality Label, and a humorous Roast Verdict. Additional visuals like Side-by-Side Photos and Issue Highlights help users understand imperfections, and the flow ends with a Next Action prompt for continued engagement.
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
-
-# Additional Demos
-[Add any extra demo materials/links]
+https://drive.google.com/file/d/1HjzwR_PEigbl0zpPj3bcwAbrIxKHVKcN/view?usp=sharing
+The video showcases Chapathi Roast Master in action — a chapathi image is uploaded, instantly analyzed for roundness, and scored with a precise percentage. The result pairs accuracy with humor, delivering both the technical verdict and a witty roast, making chapathi-checking both useful and entertaining.
 
 ## Team Contributions
 - Abraham Jeyakumar: Focused on frontend development, UI design, and integrating the chapathi image upload and result display components.
