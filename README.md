@@ -1,4 +1,4 @@
-<img width="1314" height="674" alt="diagram-export-8-9-2025-3_47_50-AM" src="https://github.com/user-attachments/assets/59dff8a6-a5de-410f-8fcb-368829bbcc18" /><img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
+<img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 
 # Chapathi Roast Master 🎯
