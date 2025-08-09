@@ -1,4 +1,4 @@
-<img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
+<img width="1314" height="674" alt="diagram-export-8-9-2025-3_47_50-AM" src="https://github.com/user-attachments/assets/59dff8a6-a5de-410f-8fcb-368829bbcc18" /><img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
 
 
 # Chapathi Roast Master 🎯
@@ -60,38 +60,18 @@ UI Components: Modular components (ImageUpload, ResultDisplay) manage file input
 Deployment: Supports local execution and cloud hosting via Vercel or Netlify.
 
 # Screenshots (Add at least 3)
-<img width="1399" height="819" alt="Screenshot 2025-08-09 034001" src="https://github.com/user-attachments/assets/e3bca982-8d27-4d0a-be81-1c3d0c2f3c03" />
-*Add caption explaining what this shows*
+<img width="1919" height="958" alt="Screenshot 2025-08-09 053433" src="https://github.com/user-attachments/assets/072f1633-1b33-4956-a879-b8d8c7da11fb" />
+This screen allows the user to upload a chapathi image. The interface is simple and responsive, ensuring quick access for testing without unnecessary distractions.
 
-<img width="1455" height="766" alt="Screenshot 2025-08-09 034044" src="https://github.com/user-attachments/assets/046f2f71-e835-4a74-8bef-2459a4b4be8c" />
-*Add caption explaining what this shows*
+<img width="1919" height="967" alt="Screenshot 2025-08-09 053405" src="https://github.com/user-attachments/assets/924d31e0-3e35-491f-ad76-ead50bbb7cf0" />
+The final result is shown along with a roundness percentage and humorous feedback, making the process both informative and engaging.(with % likness to circle)
 
-
-<img width="1919" height="1030" alt="Screenshot 2025-08-09 052852" src="https://github.com/user-attachments/assets/200f9230-f913-4414-897e-01e7fc92d730" />
-*Add caption explaining what this shows*
+<img width="1919" height="962" alt="Screenshot 2025-08-09 053451" src="https://github.com/user-attachments/assets/29c07f5c-d95a-45ba-940f-dcb1487e44ed" />
+The final output presents the chapathi’s roundness score alongside witty, light-hearted remarks, blending precise analysis with a touch of humor for an enjoyable user experience.(with % likeness to circle)
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
+<img width="1314" height="674" alt="diagram-export-8-9-2025-3_47_50-AM" src="https://github.com/user-attachments/assets/2d50b56a-2eeb-4055-a1ee-9ed4a721e406" />
 *Add caption explaining your workflow*
-
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-<img width="1919" height="958" alt="Screenshot 2025-08-09 053433" src="https://github.com/user-attachments/assets/4b3937e3-3e34-4318-9ef7-8156b796083a" />
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
